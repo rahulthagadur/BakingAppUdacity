@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">BankingApp</string>
+
+
+    <string name="error_unexpected">Oops! Something went wrong!</string>
+    <string name="error_empty">%1$s cannot be empty</string>
+    <string name="error_length">%1$s must be %2$d %3$s</string>
+    <string name="error_pass_length">Password must be min 6 chars</string>
+    <string name="error">Server Error!</string>
+    <string name="title_activity_home">Baking App</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="recipe">recipe</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
+    <string name="title_recipelistitem_list">RecipeSteps</string>
+    <string name="title_recipelistitem_detail">RecipeListItem Detail</string>
+
+
+    <string name="key_intent_ingredients">recipeIngredients</string>
+    <string name="key_intent_recipeSteps">recipeSteps</string>
+    <string name="key_intent_recipeStepsIndex">recipeStepsIndex</string>
+    <string name="key_intent_recipeName">recipeName</string>
+
+
+    <string name="key_arrayingredients">recipeIngredients</string>
+    <string name="key_arrayrecipesteps">recipeSteps</string>
+    <string name="key_steps_postion">recipeStepsIndex</string>
+    <string name="key_recipename">recipeName</string>
+
+    <string name="key_exoplayer_position">currentExoPlayerPosition</string>
+
+    <string name="tv_recipe_ingredient_of">of</string>
+
+    <string name="no_url">There is no video in this recipe.</string>
+
+    <string name="ingrediants"> Recipe Ingredients</string>
+    <string name="key_steps_list">Follow these steps</string>
+    <string name="key_ingredients">Required recipe ingrediants</string>
+    <string name="key_widgets">Add widget</string>
+
+
+</resources>
