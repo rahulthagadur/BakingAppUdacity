@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsHolder> {
 
-    private ArrayList<Ingrediants> mServiceCategoryList;
+    private ArrayList<Ingrediants> serviceCategoryList;
     private Context context;
 
-    public IngredientsRecipeAdapter(ArrayList<Ingrediants> mServiceCategoryList, Context context) {
-        this.mServiceCategoryList = mServiceCategoryList;
+    public IngredientsRecipeAdapter(ArrayList<Ingrediants> serviceCategoryList, Context context) {
+        this.serviceCategoryList = serviceCategoryList;
         this.context = context;
     }
 
@@ -32,9 +32,9 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsHo
     @Override
     public void onBindViewHolder(IngredientsHolder holder, int position) {
 
-        String quantity = mServiceCategoryList.get(position).getmQuantity();
-        String measure = mServiceCategoryList.get(position).getmMeasure();
-        String ingredient = mServiceCategoryList.get(position).getmIngredient();
+        String quantity = serviceCategoryList.get(position).getmQuantity();
+        String measure = serviceCategoryList.get(position).getmMeasure();
+        String ingredient = serviceCategoryList.get(position).getmIngredient();
 
         Log.e("quantity", "" + quantity);
         holder.txt_quantity.setText(quantity);
@@ -45,7 +45,7 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsHo
 
     @Override
     public int getItemCount() {
-        return mServiceCategoryList.size();
+        return serviceCategoryList.size();
     }
 
 }

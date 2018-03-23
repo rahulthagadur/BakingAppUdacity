@@ -39,8 +39,8 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
     private boolean isTablet;
 
     private Context mContext;
-    private RecyclerView mRecyclerView;
-    private ArrayList<Category> mServiceCategoryList;
+    private RecyclerView recipeListRecyclerView;
+    private ArrayList<Category> serviceCategoryList;
     private RecipeCategoryAdapter mAdapter;
 
     private ProgressDialog mProgressDialog;
@@ -52,20 +52,20 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initObjects();
+        initialisationOfObjects();
         initRecyclerView();
         getListService();
         hideProgressDialog();
         getIdlingResource();
     }
 
-    private void initObjects() {
+    private void initialisationOfObjects() {
         mContext = this;
-        mRecyclerView = findViewById(R.id.recyclerview);
+        recipeListRecyclerView = findViewById(R.id.recyclerview);
         isTablet = getResources().getBoolean(R.bool.isTablet);
         mProgressDialog = new ProgressDialog(mContext);
-        mServiceCategoryList = new ArrayList<>();
-        mAdapter = new RecipeCategoryAdapter(mServiceCategoryList, mContext, this);
+        serviceCategoryList = new ArrayList<>();
+        mAdapter = new RecipeCategoryAdapter(serviceCategoryList, mContext, this);
 
     }
 
@@ -87,15 +87,16 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
 
         if (isTablet) {
             GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
-            mRecyclerView.setLayoutManager(layoutManager);
-            mRecyclerView.addItemDecoration(
+            recipeListRecyclerView.setLayoutManager(layoutManager);
+            recipeListRecyclerView.addItemDecoration(
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-            mRecyclerView.setAdapter(mAdapter);
+            recipeListRecyclerView.setAdapter(mAdapter);
         } else {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            mRecyclerView.addItemDecoration(
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+            recipeListRecyclerView.setLayoutManager(linearLayoutManager);
+            recipeListRecyclerView.addItemDecoration(
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-            mRecyclerView.setAdapter(mAdapter);
+            recipeListRecyclerView.setAdapter(mAdapter);
         }
 
 
@@ -113,8 +114,8 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
                 List<Category> CategoryListResponse = response.body();
                 if (response.isSuccessful() && CategoryListResponse != null) {
                     hideProgressDialog();
-                    mServiceCategoryList.clear();
-                    mServiceCategoryList.addAll(CategoryListResponse);
+                    serviceCategoryList.clear();
+                    serviceCategoryList.addAll(CategoryListResponse);
                     mAdapter.notifyDataSetChanged();
 
                 } else {
@@ -153,10 +154,10 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
     public void onServiceCategoryClick(int position) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
 
-        ingrediants = mServiceCategoryList.get(position).getmIngredients();
-        intent.putParcelableArrayListExtra(getString(R.string.key_arrayingredients), mServiceCategoryList.get(position).getmIngredients());
-        intent.putParcelableArrayListExtra(getString(R.string.key_arrayrecipesteps), mServiceCategoryList.get(position).getmSteps());
-        intent.putExtra(getString(R.string.key_recipename), mServiceCategoryList.get(position).getmRecipeName());
+        ingrediants = serviceCategoryList.get(position).getmIngredients();
+        intent.putParcelableArrayListExtra(getString(R.string.key_arrayingredients), serviceCategoryList.get(position).getmIngredients());
+        intent.putParcelableArrayListExtra(getString(R.string.key_arrayrecipesteps), serviceCategoryList.get(position).getmSteps());
+        intent.putExtra(getString(R.string.key_recipename), serviceCategoryList.get(position).getmRecipeName());
 
         final ArrayList<String> recipeIngredientForWidgets = new ArrayList<>();
 

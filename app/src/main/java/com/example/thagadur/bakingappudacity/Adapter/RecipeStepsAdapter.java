@@ -6,23 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.thagadur.bakingappudacity.R;
 import com.example.thagadur.bakingappudacity.callback.RecipeStepsCallback;
 import com.example.thagadur.bakingappudacity.holder.RecipeStepsHolder;
 import com.example.thagadur.bakingappudacity.model.RecipeSteps;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsHolder> {
 
-    private List<RecipeSteps> mServiceCategoryList;
+    private List<RecipeSteps> serviceCategoryList;
     private RecipeStepsCallback mCallback;
     private Context mContext;
 
     public RecipeStepsAdapter(Context context, List<RecipeSteps> serviceCategoryList, RecipeStepsCallback callback) {
         mContext = context;
-        mServiceCategoryList = serviceCategoryList;
+        serviceCategoryList = serviceCategoryList;
         mCallback = callback;
     }
 
@@ -35,7 +35,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsHolder> 
 
     @Override
     public void onBindViewHolder(RecipeStepsHolder holder, int position) {
-        RecipeSteps serviceCategory = mServiceCategoryList.get(position);
+        RecipeSteps serviceCategory = serviceCategoryList.get(position);
         holder.txt_descriptiom.setText(serviceCategory.getmShortDescription());
         if (!serviceCategory.getmThumnailUrl().isEmpty()) {
 
@@ -53,6 +53,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsHolder> 
 
     @Override
     public int getItemCount() {
-        return mServiceCategoryList.size();
+        return serviceCategoryList.size();
     }
 }
