@@ -8,13 +8,10 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Created by admin on 12/8/2017.
+ * Created by thagadur on 03/03/2018.
  */
 
 public interface CategoryService {
-
-
     @GET("59121517_baking/baking.json")
     Call<ArrayList<Category>> getRecipe();
-
 }

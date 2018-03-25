@@ -9,12 +9,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/beer" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="08dp"
-        android:text="Baking App"
-        android:textColor="@color/primary"
-        android:textSize="18sp" />
+
 </LinearLayout>

@@ -18,17 +18,17 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         initObjects();
 
-        final Thread mythread = new Thread() {
+        final Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(2000);
                 } catch (Exception e) {
                 } finally {
                     launch(mContext, HomeActivity.class);
                 }
             }
         };
-        mythread.start();
+        thread.start();
 
     }
     @Override

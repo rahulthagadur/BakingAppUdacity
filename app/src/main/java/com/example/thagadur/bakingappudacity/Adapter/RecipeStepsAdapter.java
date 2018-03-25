@@ -5,47 +5,51 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.thagadur.bakingappudacity.R;
 import com.example.thagadur.bakingappudacity.callback.RecipeStepsCallback;
-import com.example.thagadur.bakingappudacity.holder.RecipeStepsHolder;
 import com.example.thagadur.bakingappudacity.model.RecipeSteps;
 
 import java.util.List;
 
-public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsHolder> {
+import static com.example.thagadur.bakingappudacity.R.id.steps_layout;
 
-    private List<RecipeSteps> serviceCategoryList;
-    private RecipeStepsCallback mCallback;
-    private Context mContext;
+public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsHolder> {
+
+    private List<RecipeSteps> recipeStepsList;
+    private RecipeStepsCallback recipeStepsCallback;
+    private Context context;
 
     public RecipeStepsAdapter(Context context, List<RecipeSteps> serviceCategoryList, RecipeStepsCallback callback) {
-        mContext = context;
-        serviceCategoryList = serviceCategoryList;
-        mCallback = callback;
+        this.context = context;
+        this.recipeStepsList = serviceCategoryList;
+        recipeStepsCallback = callback;
     }
 
     @Override
     public RecipeStepsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new RecipeStepsHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stepsdescription,
-                        parent, false), mCallback);
+                        parent, false), recipeStepsCallback);
     }
 
     @Override
     public void onBindViewHolder(RecipeStepsHolder holder, int position) {
-        RecipeSteps serviceCategory = serviceCategoryList.get(position);
-        holder.txt_descriptiom.setText(serviceCategory.getmShortDescription());
+        RecipeSteps serviceCategory = recipeStepsList.get(position);
+        holder.descriptionTextview.setText(serviceCategory.getmShortDescription());
         if (!serviceCategory.getmThumnailUrl().isEmpty()) {
 
-            Glide.with(mContext).load(serviceCategory.getmThumnailUrl()).into(holder.order_image);
-            holder.order_image.setVisibility(View.VISIBLE);
+            Glide.with(this.context).load(serviceCategory.getmThumnailUrl()).into(holder.orderImageView);
+            holder.orderImageView.setVisibility(View.VISIBLE);
         }
         else
         {
-            holder.order_image.setImageResource(R.drawable.cook);
-            holder.order_image.setVisibility(View.VISIBLE);
+            holder.orderImageView.setImageResource(R.drawable.cook);
+            holder.orderImageView.setVisibility(View.VISIBLE);
         }
 
 
@@ -53,6 +57,34 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsHolder> 
 
     @Override
     public int getItemCount() {
-        return serviceCategoryList.size();
+        return recipeStepsList.size();
     }
+
+    class RecipeStepsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        public TextView descriptionTextview;
+        public ImageView orderImageView;
+        LinearLayout stepsLinearLayout;
+        boolean twoPanel;
+        private RecipeStepsCallback recipeStepsCallback;
+
+
+        public RecipeStepsHolder(View itemView, RecipeStepsCallback callback) {
+            super(itemView);
+            descriptionTextview = itemView.findViewById(R.id.txt_descriptiom);
+            orderImageView = itemView.findViewById(R.id.order_image);
+            stepsLinearLayout = itemView.findViewById(steps_layout);
+
+            recipeStepsCallback = callback;
+            stepsLinearLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (view == stepsLinearLayout) {
+                recipeStepsCallback.onServiceCategoryClick(getLayoutPosition(), twoPanel);
+            }
+        }
+    }
+
 }

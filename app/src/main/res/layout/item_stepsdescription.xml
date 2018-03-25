@@ -45,7 +45,7 @@
                             android:layout_margin="10dp"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/nutella"
+                            android:src="@drawable/chocolate"
                             android:visibility="gone"
                             tools:ignore="ContentDescription" />
 

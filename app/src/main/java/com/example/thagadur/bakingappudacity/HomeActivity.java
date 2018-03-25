@@ -3,6 +3,8 @@ package com.example.thagadur.bakingappudacity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,13 +39,11 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
 
     protected ArrayList<Ingrediants> ingrediants = new ArrayList<>();
     private boolean isTablet;
-
     private Context mContext;
     private RecyclerView recipeListRecyclerView;
     private ArrayList<Category> serviceCategoryList;
-    private RecipeCategoryAdapter mAdapter;
-
-    private ProgressDialog mProgressDialog;
+    private RecipeCategoryAdapter recipeCategoryAdapter;
+    private ProgressDialog progressDialog;
 
     @Nullable
     private SimpleIdlingResource mIdlingResource;
@@ -53,20 +53,48 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialisationOfObjects();
-        initRecyclerView();
-        getListService();
+        initialisationOfRecyclerView();
+        //getListService();
         hideProgressDialog();
         getIdlingResource();
     }
 
+    /**
+     * Here calling isOnline()
+     * If not connected redirecting to OffLineActivity class
+     * If connected called loadMovieData()
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!isOnline()) {
+            Intent intent = new Intent();
+            intent.setClass(this, OffLineActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            getListService();
+        }
+    }
+
+    /**
+     * we are going to check whether the device is connected to the internet
+     *
+     * @return
+     */
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
     private void initialisationOfObjects() {
         mContext = this;
-        recipeListRecyclerView = findViewById(R.id.recyclerview);
+        recipeListRecyclerView = findViewById(R.id.recipe_list_recyclerview);
         isTablet = getResources().getBoolean(R.bool.isTablet);
-        mProgressDialog = new ProgressDialog(mContext);
+        progressDialog = new ProgressDialog(mContext);
         serviceCategoryList = new ArrayList<>();
-        mAdapter = new RecipeCategoryAdapter(serviceCategoryList, mContext, this);
-
+        recipeCategoryAdapter = new RecipeCategoryAdapter(serviceCategoryList, mContext, this);
     }
 
     @Override
@@ -83,40 +111,37 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
         return mIdlingResource;
     }
 
-    private void initRecyclerView() {
-
+    private void initialisationOfRecyclerView() {
         if (isTablet) {
             GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
             recipeListRecyclerView.setLayoutManager(layoutManager);
             recipeListRecyclerView.addItemDecoration(
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-            recipeListRecyclerView.setAdapter(mAdapter);
+            recipeListRecyclerView.setAdapter(recipeCategoryAdapter);
         } else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
             recipeListRecyclerView.setLayoutManager(linearLayoutManager);
             recipeListRecyclerView.addItemDecoration(
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-            recipeListRecyclerView.setAdapter(mAdapter);
+            recipeListRecyclerView.setAdapter(recipeCategoryAdapter);
         }
-
-
     }
 
     private void getListService() {
-        showProgressDialog("Loading....");
+        showProgressDialog("Please wait Loading ....");
         CategoryService categoryService = ApiClient.getClient().create(CategoryService.class);
         Call<ArrayList<Category>> call = categoryService.getRecipe();
         call.enqueue(new retrofit2.Callback<ArrayList<Category>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayList<Category>> call, @NonNull Response<ArrayList<Category>> response) {
                 hideProgressDialog();
-                Log.e("arrayvalud", "" + response.toString());
+                //Log.e("arrayvalud", "" + response.toString());
                 List<Category> CategoryListResponse = response.body();
                 if (response.isSuccessful() && CategoryListResponse != null) {
                     hideProgressDialog();
                     serviceCategoryList.clear();
                     serviceCategoryList.addAll(CategoryListResponse);
-                    mAdapter.notifyDataSetChanged();
+                    recipeCategoryAdapter.notifyDataSetChanged();
 
                 } else {
 
@@ -137,15 +162,15 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
 
     @SuppressWarnings("SameParameterValue")
     private void showProgressDialog(String message) {
-        mProgressDialog.setMessage(message);
-        if (!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
+        progressDialog.setMessage(message);
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
         }
     }
 
     private void hideProgressDialog() {
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
     }
 
@@ -164,9 +189,9 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
         if (ingrediants != null) {
             for (int i = 0; i < ingrediants.size(); i++) {
 
-                String ingredientName = ingrediants.get(i).getmIngredient();
-                String quantity = ingrediants.get(i).getmQuantity();
-                String measure = ingrediants.get(i).getmMeasure();
+                String ingredientName = ingrediants.get(i).getIngredient();
+                String quantity = ingrediants.get(i).getQuantity();
+                String measure = ingrediants.get(i).getMeasure();
 
                 recipeIngredientForWidgets.add(ingredientName + "\n" + "Quantity: " + quantity + "\n" + "Measure: " + measure + "\n");
             }

@@ -46,13 +46,9 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-
+                    android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/txt_quantity"
                         android:layout_width="170dp"
@@ -70,15 +66,15 @@
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="02dp"
-                        android:layout_weight="1"
-                        android:gravity="left"
+                        android:layout_marginRight="8dp"
+                        android:layout_toRightOf="@+id/txt_quantity"
                         android:padding="05dp"
                         android:text=" "
                         android:textColor="@color/primary"
                         android:textSize="14sp"
                         tools:ignore="HardcodedText" />
 
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -3,8 +3,6 @@ package com.example.thagadur.bakingappudacity.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Ingrediants implements Parcelable {
 
     public static final Creator<Ingrediants> CREATOR = new Creator<Ingrediants>() {
@@ -18,30 +16,20 @@ public class Ingrediants implements Parcelable {
             return new Ingrediants[size];
         }
     };
-    @SerializedName("quantity")
-    private String mQuantity;
-    @SerializedName("measure")
-    private String mMeasure;
-    @SerializedName("ingredient")
-    private String mIngredient;
-
+    private String quantity;
+    private String measure;
+    private String ingredient;
 
     public Ingrediants(String quantity, String measure, String ingredient) {
-        this.mQuantity = quantity;
-        this.mMeasure = measure;
-        this.mIngredient = ingredient;
+        this.quantity = quantity;
+        this.measure = measure;
+        this.ingredient = ingredient;
     }
 
     public Ingrediants(Parcel in) {
-        mQuantity = in.readString();
-        mMeasure = in.readString();
-        mIngredient = in.readString();
-    }
-
-
-    public Ingrediants(String Quantity, String Measure) {
-        mQuantity = Quantity;
-        mMeasure = Measure;
+        quantity = in.readString();
+        measure = in.readString();
+        ingredient = in.readString();
     }
 
     @Override
@@ -51,32 +39,32 @@ public class Ingrediants implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(mQuantity);
-        parcel.writeString(mMeasure);
-        parcel.writeString(mIngredient);
+        parcel.writeString(quantity);
+        parcel.writeString(measure);
+        parcel.writeString(ingredient);
     }
 
-    public String getmQuantity() {
-        return mQuantity;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setmQuantity(String mQuantity) {
-        this.mQuantity = mQuantity;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public String getmMeasure() {
-        return mMeasure;
+    public String getMeasure() {
+        return measure;
     }
 
-    public void setmMeasure(String mMeasure) {
-        this.mMeasure = mMeasure;
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 
-    public String getmIngredient() {
-        return mIngredient;
+    public String getIngredient() {
+        return ingredient;
     }
 
-    public void setmIngredient(String mIngredient) {
-        this.mIngredient = mIngredient;
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 }
