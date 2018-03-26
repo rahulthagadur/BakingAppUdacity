@@ -217,6 +217,10 @@ public class RecipeStepExoplayerFragment extends Fragment implements ExoPlayer.E
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (exoPlayer != null) {
+            currentExoPlayerPosition = exoPlayer.getContentPosition();
+            playWhenReady = exoPlayer.getPlayWhenReady();
+        }
         outState.putParcelableArrayList(getString(R.string.key_arrayrecipesteps), recipeSteps);
         outState.putInt(getString(R.string.key_steps_postion), currentpostionIndex);
         outState.putLong(getString(R.string.key_exoplayer_position), Math.max(0, exoPlayer.getContentPosition()));
@@ -230,10 +234,15 @@ public class RecipeStepExoplayerFragment extends Fragment implements ExoPlayer.E
             exoPlayer.release();
 
         }
-
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (exoPlayer == null) {
+            initializePlayer();
+        }
+    }
     @Override
     public void onStop() {
         super.onStop();
