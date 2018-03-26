@@ -18,9 +18,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.Intents.intending;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.isInternal;
 import static org.hamcrest.CoreMatchers.not;
 
@@ -50,9 +48,7 @@ public class IntentTests {
 
     @Test
     public void checkIntent_RecipeDetailActivity() {
-        onView(ViewMatchers.withId(R.id.recipe_list_recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        intended(hasComponent(HomeActivity.class.getName()));
-
+        onView(ViewMatchers.withId(R.id.recipe_list_recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
     }
 
 
