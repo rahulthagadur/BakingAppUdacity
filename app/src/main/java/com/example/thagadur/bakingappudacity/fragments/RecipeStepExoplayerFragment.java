@@ -80,7 +80,6 @@ public class RecipeStepExoplayerFragment extends Fragment implements ExoPlayer.E
      * @param param2 Parameter 2.
      * @return A new instance of fragment RecipeStepExoplayerFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static RecipeStepExoplayerFragment newInstance(String param1, String param2) {
         RecipeStepExoplayerFragment fragment = new RecipeStepExoplayerFragment();
         Bundle args = new Bundle();
@@ -185,8 +184,6 @@ public class RecipeStepExoplayerFragment extends Fragment implements ExoPlayer.E
         this.currentpostionIndex = currentpostionIndex;
     }
 
-
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

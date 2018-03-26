@@ -51,16 +51,6 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsCallba
     public RecipeDetailsFragment() {
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static RecipeDetailsFragment newInstance(String param1, String param2) {
-        RecipeDetailsFragment fragment = new RecipeDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,14 +97,6 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsCallba
         mReCyclerviewRecipe.setNestedScrollingEnabled(false);
         mReCyclerviewRecipe.setAdapter(recipeStepsAdapter);
 
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override

@@ -119,8 +119,7 @@ public class HomeActivity extends AppCompatActivity implements RecipeCategoryCal
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
             recipeListRecyclerView.setAdapter(recipeCategoryAdapter);
         } else {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-            recipeListRecyclerView.setLayoutManager(linearLayoutManager);
+            recipeListRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             recipeListRecyclerView.addItemDecoration(
                     new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
             recipeListRecyclerView.setAdapter(recipeCategoryAdapter);
