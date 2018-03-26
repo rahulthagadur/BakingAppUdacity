@@ -40,7 +40,7 @@ public class ActivityTests {
 
     @Test
     public void checkText_MainActivity() {
-        onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.scrollToPosition(1));
+        onView(ViewMatchers.withId(R.id.recipe_list_recyclerview)).perform(RecyclerViewActions.scrollToPosition(1));
         onView(withText("Brownies")).check(matches(isDisplayed()));
     }
 
